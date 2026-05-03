@@ -1,7 +1,5 @@
 import stripe
 
-# from django.conf import settings
-
 
 class StripeApiManager:  # TODO: взять базовый класс синглтона из проекта DFA и наследовать его
     def create_session(self, item) -> str:

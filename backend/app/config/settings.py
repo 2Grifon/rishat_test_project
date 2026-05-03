@@ -3,6 +3,7 @@ import os
 import environ
 from pathlib import Path
 from corsheaders.defaults import default_headers
+import stripe
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -164,3 +165,4 @@ REST_FRAMEWORK = {
 
 # Stripe
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+stripe.api_key = STRIPE_SECRET_KEY  # REVIEW: Так вообще стоит задавать параметры?

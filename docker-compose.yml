@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+  backend:
+    container_name: rishat_test_project_backend
+    build: backend/
+    restart: unless-stopped
+    volumes:
+      - ./backend:/backend
+      - media:/backend/media
+      - static:/backend/static
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/backend/app
+    depends_on:
+      - postgres
+    networks:
+      - main_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "3gb"
+
+  postgres:
+    container_name: rishat_test_project_postgres
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=500"
+    image: postgres:18-alpine
+    restart: unless-stopped
+    volumes:
+      - postgresql-data:/var/lib/postgresql
+    # expose:
+    #   - 5432
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    networks:
+      - main_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "3gb"
+
+#  nginx:
+#    image: nginx:latest
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    restart: unless-stopped
+#    volumes:
+#      - nginx_conf:/etc/nginx/conf.d/:ro
+#      - certbot_www:/var/www/certbot/:ro
+#      - certbot_conf:/etc/nginx/ssl/:ro
+#      - media:/media/
+#      - static:/static/
+#    networks:
+#      - main_network
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "3gb"
+#
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - certbot_www:/var/www/certbot/:rw
+#      - certbot_conf:/etc/letsencrypt/:rw
+#    networks:
+#      - main_network
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "3gb"
+networks:
+  main_network:
+volumes:
+  postgresql-data:
+  media:
+  static:
+    #  certbot_www:
+    #  certbot_conf:

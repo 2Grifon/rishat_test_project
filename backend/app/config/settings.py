@@ -38,11 +38,10 @@ USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Application definition
-
 LOCAL_APPS = []
 
 THIRD_PARTY_APPS = [
-    # "rest_framework",
+    "rest_framework",
     "corsheaders",
     # "django_celery_beat",
 ]
@@ -146,17 +145,20 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# # rest framework
-# REST_FRAMEWORK = {
-#     "DEFAULT_AUTHENTICATION_CLASSES": (
-#         "rest_framework_simplejwt.authentication.JWTAuthentication",
-#         "rest_framework.authentication.BasicAuthentication",
-#     ),
-#     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
-# }
+# rest framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+}
 
 # SIMPLE_JWT = {
 #     "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
 #     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 #     "ROTATE_REFRESH_TOKENS": True,
 # }
+
+# Stripe
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")

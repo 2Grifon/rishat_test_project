@@ -55,10 +55,10 @@ db-bash:
 
 #migrations
 migrations:
-	docker exec -it $(app_name)_backend python -m app.manage makemigrations
+	docker exec -it $(app_name)_backend python app/manage.py makemigrations
 
 migrate:
-	docker exec -it $(app_name)_backend python -m app.manage migrate
+	docker exec -it $(app_name)_backend python app/manage.py migrate
 
 psql:
 	docker exec -it $(app_name)_postgres psql -U postgres

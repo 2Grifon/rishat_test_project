@@ -142,8 +142,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = BASE_DIR / "static"
-MEDIA_ROOT = BASE_DIR / "media"
+STATIC_ROOT = BASE_DIR.parent / "static"  # статика работает только через nignx, либо с debug=true
+MEDIA_ROOT = BASE_DIR.parent / "media"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

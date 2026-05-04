@@ -1,6 +1,6 @@
 app_name = rishat_test_project
-loc_services := postgres backend
 docker_compose := docker compose -f docker-compose.yml
+docker_compose_local := docker compose -f docker-compose.local.yml
 
 #build
 build:
@@ -10,11 +10,15 @@ rebuild:
 	$(docker_compose) up -d --build --force-recreate $(c)
 	docker image prune -f
 
+rebuild-loc:
+	$(docker_compose_local) up -d --build --force-recreate $(c)
+	docker image prune -f
+
 up:
 	$(docker_compose) up -d $(c)
 
 up-loc:
-	$(docker_compose) up -d $(loc_services) $(c)
+	$(docker_compose_local) up -d $(c)
 
 start:
 	$(docker_compose) start $(c)
@@ -27,8 +31,8 @@ reup:
 	$(docker_compose) up -d $(c)
 
 reup-loc:
-	$(docker_compose) down $(c)
-	$(docker_compose) up -d $(loc_services) $(c)
+	$(docker_compose_local) down $(c)
+	$(docker_compose_local) up -d $(c)
 
 destroy:
 	$(docker_compose) down --rmi all -v $(c)

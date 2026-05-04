@@ -1,8 +1,11 @@
+from django.urls import reverse
 import stripe
+
+from apps.shop.models.item import Item
 
 
 class StripeApiManager:  # TODO: взять базовый класс синглтона из проекта DFA и наследовать его
-    def create_session(self, item) -> str:
+    def create_session(self, request, item: Item) -> str:
         """
         Создаёт сессию Stripe Session и возвращает её id
         https://docs.stripe.com/api/checkout/sessions/create?architecture-style=resources
@@ -12,9 +15,8 @@ class StripeApiManager:  # TODO: взять базовый класс сингл
         session = stripe.checkout.Session.create(
             line_items=line_items,
             mode="payment",
-            success_url="http://localhost:3000/success",  # TODO: использовать рабочий URL
+            success_url=f"{request.build_absolute_uri(reverse('payment-success'))}",
         )
-        print(session)  # TODO: удалить отладочный принт
         return session.id
 
     def _create_line_item(self, item) -> dict:

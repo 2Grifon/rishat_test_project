@@ -20,11 +20,13 @@ class BuyItemView(RetrieveAPIView):
 
 
 class ItemDetailView(DetailView):
+    """Рендерит HTML страницу с деталями товара и кнопкой для оплаты"""
+
     model = Item
     template_name = "shop/item_detail.html"
     context_object_name = "item"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["publishable_key"] = settings.STRIPE_PUBLISHABLE_KEY
         return context

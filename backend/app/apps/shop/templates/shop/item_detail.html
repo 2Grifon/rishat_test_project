@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>Buy {{ item.name }}</title>
+</head>
+
+<body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }}</p>
+    <button id="buy-button" data-buy-url="{% url 'buy-item' item.pk %}">Buy</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        var stripe = Stripe('{{ publishable_key }}');
+        var buyButton = document.getElementById('buy-button');
+        buyButton.addEventListener('click', function () {
+            fetch(buyButton.getAttribute('data-buy-url'), { method: 'GET' })
+                .then(function (response) { return response.json(); })
+                .then(function (data) { stripe.redirectToCheckout({ sessionId: data.session_id }); });
+        });
+    </script>
+</body>
+
+</html>

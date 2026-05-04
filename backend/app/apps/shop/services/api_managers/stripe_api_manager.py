@@ -14,7 +14,7 @@ class StripeApiManager:  # TODO: взять базовый класс сингл
             mode="payment",
             success_url="http://localhost:3000/success",  # TODO: использовать рабочий URL
         )
-
+        print(session)  # TODO: удалить отладочный принт
         return session.id
 
     def _create_line_item(self, item) -> dict:

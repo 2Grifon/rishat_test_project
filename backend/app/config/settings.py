@@ -166,3 +166,5 @@ REST_FRAMEWORK = {
 # Stripe
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 stripe.api_key = STRIPE_SECRET_KEY  # REVIEW: Так вообще стоит задавать параметры?
+
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")

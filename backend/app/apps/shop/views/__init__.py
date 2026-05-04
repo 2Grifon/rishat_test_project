@@ -1,1 +1,1 @@
-from .item import BuyItemView
+from .item import BuyItemView, ItemDetailView

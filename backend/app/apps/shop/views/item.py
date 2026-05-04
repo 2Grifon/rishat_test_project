@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db.models import QuerySet
+from django.views.generic.detail import DetailView
 from rest_framework.generics import RetrieveAPIView, get_object_or_404
 
 from apps.shop.models import Item
@@ -15,3 +17,14 @@ class BuyItemView(RetrieveAPIView):
 
     def get_object(self) -> Item:
         return get_object_or_404(self.get_queryset(), pk=self.kwargs["pk"])
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = "shop/item_detail.html"
+    context_object_name = "item"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["publishable_key"] = settings.STRIPE_PUBLISHABLE_KEY
+        return context

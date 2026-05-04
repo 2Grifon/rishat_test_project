@@ -44,6 +44,7 @@ python app/manage.py createsuperuser
 
 ### Пример использования
  - http://5.35.84.61/api/v1/shop/item/1/
+ - http://5.35.84.61/admin/
  - http://localhost:8000/api/v1/shop/success/
 
 ## Настройки, управление проектом
